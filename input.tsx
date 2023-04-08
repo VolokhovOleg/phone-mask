@@ -1,22 +1,15 @@
-import React, { ChangeEvent, FC, useState } from "react";
-
-type InputMaskProps = {
-  mask: string;
-  value: string;
-  onChange?: (value: string) => void;
-};
-
-const InputMask: FC<InputMaskProps> = ({ mask, value, onChange }) => {
-  const [filteredValue, setFilteredValue] = useState(filterMaskValue(mask, value));
+const [inputValue, setInputValue] = useState(value);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     const filteredValue = filterMaskValue(mask, newValue);
-    setFilteredValue(filteredValue);
+    setInputValue(filteredValue);
     if (onChange) {
       onChange(filteredValue);
     }
   };
+
+  const filteredValue = filterMaskValue(mask, inputValue);
 
   return (
     <input
@@ -26,7 +19,3 @@ const InputMask: FC<InputMaskProps> = ({ mask, value, onChange }) => {
       placeholder={mask}
     />
   );
-};
-
-export default InputMask;
-  
